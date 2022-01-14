@@ -40,6 +40,7 @@ import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.management.StandardMBean;
 
+import org.apache.hadoop.hdfs.server.common.LockManager;
 import org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.MountVolumeMap;
 import org.apache.hadoop.thirdparty.com.google.common.math.LongMath;
 import org.apache.commons.lang3.ArrayUtils;
@@ -1587,14 +1588,8 @@ public class SimulatedFSDataset implements FsDatasetSpi<FsVolumeSpi> {
   }
 
   @Override
-  public AutoCloseableLock acquireDatasetLock() {
-    return datasetLock.acquire();
-  }
-
-  @Override
-  public AutoCloseableLock acquireDatasetReadLock() {
-    // No RW lock implementation in simulated dataset currently.
-    return datasetLock.acquire();
+  public LockManager acquireDatasetLockManager() {
+    return null;
   }
 
   @Override
